@@ -27,7 +27,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --display minimal",
-    "build": "webpack"
+    "start": "webpack-dev-server --config=webpack.dev.config.js",
+    "build": "webpack --config=webpack.prod.config.js"
   }
 }
