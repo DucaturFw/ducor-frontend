@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "es6",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "target": "es5",
+    "baseUrl": "./src/",
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "*.test.ts"
+  ]
+}
