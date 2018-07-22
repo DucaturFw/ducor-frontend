@@ -2,6 +2,7 @@ import React, { PureComponent, ChangeEvent } from 'react'
 import styled from 'react-emotion'
 
 import ListItem from './ListItem'
+import InputNumber from 'components/Input/Number'
 
 export interface State {
   provider: string
@@ -23,15 +24,15 @@ export default class ConstructForm extends PureComponent<Props, State> {
   }
 
   data = {
-    pairs: [ 'ETH/BTC', 'ETH/USD', 'BTC/USD', 'EOS/ETH', 'EOS/BTC' ],
+    pairs: [ 'ETH / BTC', 'ETH / USD', 'BTC / USD', 'EOS / ETH', 'EOS / BTC' ],
     providers: [ 'TOP-10', 'Binance', 'CoinMarketCap', 'HitBTC', 'Casino Yobit' ]
   }
 
-  select = (key: string, value: string) =>
+  onSelect = (key: string, value: string) =>
     this.setState({ [key]: value } as any)
 
-  onInputChange = (event: ChangeEvent<HTMLInputElement>) =>
-    this.setState({ [event.target.name]: event.target.value } as any)
+  onInputChange = (key: string) => (value: number) =>
+    this.setState({ [key]: value } as any)
 
   onSubmit = () =>
     this.props.onSubmit(this.state)
@@ -47,11 +48,12 @@ export default class ConstructForm extends PureComponent<Props, State> {
                 key={val}
                 type='pair'
                 value={val}
-                onClick={this.select}
+                onClick={this.onSelect}
                 selected={this.state.pair === val} />
             )}
           </List>
         </Column>
+        <SeperatorArrow />
         <Column>
           <ColumnTitle>Data provider</ColumnTitle>
           <List>
@@ -60,36 +62,43 @@ export default class ConstructForm extends PureComponent<Props, State> {
                 key={val}
                 type='provider'
                 value={val}
-                onClick={this.select}
+                onClick={this.onSelect}
                 selected={this.state.provider === val} />
             )}
           </List>
         </Column>
+        <SeperatorArrow />
         <Column>
-          <ColumnTitle>Update after</ColumnTitle>
-          <LabeledInputContainer>
-            <Input
-              name='updateAfter'
-              type='number'
-              defaultValue={this.state.updateAfter}
-              onChange={this.onInputChange}
-            />
-            <Label htmlFor='updateAfter'>blocks</Label>
-          </LabeledInputContainer>
+          <VerticalDelimeter>
+            <ColumnTitle>Update after</ColumnTitle>
+            <LabeledInputContainer>
+              <InputNumber
+                name='updateAfter'
+                defaultValue={this.state.updateAfter}
+                onChange={this.onInputChange('updateAfter')}
+              />
+              <Label htmlFor='updateAfter'>blocks</Label>
+            </LabeledInputContainer>
+          </VerticalDelimeter>
 
-          <ColumnTitle>Retire data after</ColumnTitle>
-          <LabeledInputContainer>
-            <Input
-              name='retireAfter'
-              type='number'
-              defaultValue={this.state.retireAfter}
-              onChange={this.onInputChange}
-            />
-            <Label htmlFor='retireAfter'>blocks</Label>
-          </LabeledInputContainer>
-
-          <MainBtn onClick={this.onSubmit}>Generate</MainBtn>
+          <VerticalDelimeter>
+            <ColumnTitle>Retire data after</ColumnTitle>
+            <LabeledInputContainer>
+              <InputNumber
+                name='retireAfter'
+                defaultValue={this.state.retireAfter}
+                onChange={this.onInputChange('retireAfter')}
+              />
+              <Label htmlFor='retireAfter'>blocks</Label>
+            </LabeledInputContainer>
+          </VerticalDelimeter>
         </Column>
+        <ControlsRow>
+          <MainBtn onClick={this.onSubmit}>
+            Generate
+            <Icon src={require('./arrowRight.svg')}/>
+          </MainBtn>
+        </ControlsRow>
       </FormContainer>
     )
   }
@@ -98,17 +107,33 @@ export default class ConstructForm extends PureComponent<Props, State> {
 const FormContainer = styled('div')({
   display: 'flex',
   flexFlow: 'row wrap',
+  justifyContent: 'space-around',
+  padding: '0 2vw',
 })
 
 const Column = styled('div')({
+  boxSizing: 'border-box',
   display: 'flex',
   flexFlow: 'column wrap',
-  padding: '1rem',
+  padding: '4vh 2vw',
+  position: 'relative',
+  textAlign: 'center',
+  justifyContent: 'center',
+  width: '30%',
+  minWidth: '14rem'
 })
 
-const ColumnTitle = styled('strong')({
-  fontSize: '1.2rem'
+const SeperatorArrow = styled('div')({
+  background: `url("${require('./separatorArrow.svg')}") center center no-repeat`,
+  width: 25,
+  height: 95,
+  marginTop: '8rem',
 })
+
+const ColumnTitle = styled('span')(({ theme }) => ({
+  fontSize: '1.4rem',
+  color: theme.titleColor,
+}))
 
 const List = styled('ul')({
   display: 'flex',
@@ -121,22 +146,34 @@ const LabeledInputContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '1rem 0'
+  margin: '1rem 0 2rem 0',
 })
 
-const Input = styled('input')({
-  padding: '.25rem'
+const VerticalDelimeter = styled('div')({
+  margin: '.5rem 0'
 })
 
 const Label = styled('label')({
-  fontSize: '.9rem',
-  padding: '0 .5rem'
+  padding: '0 .5rem',
 })
 
-const MainBtn = styled('button')({
-  background: 'orange',
+const MainBtn = styled('button')(({ theme }) => ({
+  background: theme.activeColor,
   border: 0,
-  color: '#fff',
-  fontSize: '1.1rem',
-  padding: '1.5rem',
+  borderRadius: '2rem',
+  color: theme.lightColor,
+  fontSize: '1.4rem',
+  padding: '.75rem 1rem .85rem 1rem',
+  marginBottom: '2rem',
+  cursor: 'pointer',
+}))
+
+const ControlsRow = styled('div')({
+  flexBasis: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+})
+
+const Icon = styled('img')({
+  marginLeft: '1rem'
 })

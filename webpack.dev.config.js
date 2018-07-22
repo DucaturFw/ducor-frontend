@@ -29,7 +29,18 @@ module.exports = {
           }
         } ],
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              noquotes: true,
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {

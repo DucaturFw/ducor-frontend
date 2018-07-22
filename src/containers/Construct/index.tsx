@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
-import styled from 'react-emotion'
 
 import ConstructForm, { State } from './ConstructForm'
 import { withRouter } from 'react-router'
 import { History } from 'history'
+
+import Page from 'components/Page'
 
 interface Props {
   history: History
@@ -15,22 +16,11 @@ class ConstructPage extends PureComponent<Props> {
 
   render() {
     return (
-      <Root>
-        <H1>Choose data to receive</H1>
+      <Page title='Choose data to receive'>
         <ConstructForm onSubmit={this.onFormSubmit} />
-      </Root>
+      </Page>
     )
   }
 }
-
-const Root = styled('div')({
-  display: 'flex',
-  flexFlow: 'column wrap',
-  justifyContent: 'center',
-  alignItems: 'center',
-  minHeight: '100vh',
-})
-
-const H1 = styled('h1')()
 
 export default withRouter(ConstructPage as any)
