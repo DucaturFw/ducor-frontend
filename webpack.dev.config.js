@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true,
-    // quiet: true
+    historyApiFallback: true,
   },
   performance: {
     hints: false,
