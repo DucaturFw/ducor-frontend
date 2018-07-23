@@ -31,6 +31,6 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js",
     "build": "webpack --config=webpack.prod.config.js",
-    "test": "webpack --config=webpack.prod.config.js",
+    "test": "webpack --config=webpack.prod.config.js"
   }
 }
