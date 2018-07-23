@@ -127,7 +127,7 @@ const SeperatorArrow = styled('div')({
   background: `url("${require('./separatorArrow.svg')}") center center no-repeat`,
   width: 25,
   height: 95,
-  marginTop: '8rem',
+  marginTop: '8.5rem',
 })
 
 const ColumnTitle = styled('span')(({ theme }) => ({
