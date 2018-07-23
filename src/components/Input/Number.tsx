@@ -54,8 +54,9 @@ const Root = styled('div')({
 
 const Input = styled('input')(({ theme }) => ({
   fontSize: '1.1rem',
-  padding: '.5rem 1rem',
-  width: '50%',
+  height: '1.35rem',
+  width: '5rem',
+  padding: '.5rem .75rem .5rem 1rem',
   textAlign: 'center',
   border: `1px solid ${theme.borderColor}`,
   borderRadius: '.5rem',
@@ -63,9 +64,9 @@ const Input = styled('input')(({ theme }) => ({
 } as any))
 
 const BtnControl = styled('div')({
-  width: '.8rem',
+  width: '1rem',
   height: '1rem',
-  margin: '0 .25rem'
+  margin: '0 .3rem'
 })
 
 const BtnUp = styled(BtnControl)()
@@ -89,7 +90,7 @@ const Separator = styled('div')(({ theme }) => ({
 const Controls = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: 0,
-  right: '1rem',
+  right: 0,
   background: '#D5E5FF',
   border: `1px solid ${theme.borderColor}`,
   borderRadius: '0 .5rem .5rem 0',
