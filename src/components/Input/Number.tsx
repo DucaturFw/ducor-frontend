@@ -60,7 +60,7 @@ const Input = styled('input')(({ theme }) => ({
   border: `1px solid ${theme.borderColor}`,
   borderRadius: '.5rem',
   appearance: 'textfield'
-} as any)
+} as any))
 
 const BtnControl = styled('div')({
   width: '.8rem',
