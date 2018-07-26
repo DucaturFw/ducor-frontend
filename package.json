@@ -31,6 +31,13 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js",
     "build": "webpack --config=webpack.prod.config.js",
-    "test": "webpack --config=webpack.prod.config.js"
+    "test": "webpack --config=webpack.prod.config.js",
+    "dev-api": "node ./dev-api"
+  },
+  "devDependencies": {
+    "@koa/cors": "2",
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
+    "ts-node": "^7.0.0"
   }
 }
