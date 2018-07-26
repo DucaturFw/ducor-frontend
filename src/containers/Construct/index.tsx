@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import ConstructForm, { State } from './ConstructForm'
+import ConstructForm, { State as Form } from './ConstructForm'
 import { withRouter } from 'react-router'
 import { History } from 'history'
 
@@ -10,14 +10,60 @@ interface Props {
   history: History
 }
 
-class ConstructPage extends PureComponent<Props> {
-  onFormSubmit = (form: State) =>
-    console.log({ form }) || this.props.history.push('contractCode')
+export interface Category {
+  name: string
+  types?: string[] // not needed
+  providers?: {
+    id: string
+    name: string
+    types: string[]
+  }[]
+}
+
+interface StateNew {
+  categories: {
+    name: string,
+    meta?: {
+      providers: {
+        id: string
+        name: string
+        types: string[]
+      }[]
+    }
+  }[]
+}
+
+interface State {
+  categories?: Category[]
+}
+
+// TEMP
+declare global {
+  interface Window { store: any; }
+}
+
+class ConstructPage extends PureComponent<Props, State> {
+  state = {
+    categories: null
+  } as State
+
+  onFormSubmit = (form: Form) => {
+    window.store = { form }
+    this.props.history.push('contractCode')
+  }
+  
+  async componentWillMount() {
+    const res = await fetch('http://localhost:8081/api/config')
+    const json = await res.json() as { categories: Category[] }
+    this.setState(json)
+  }
 
   render() {
     return (
       <Page title='Choose data to receive'>
-        <ConstructForm onSubmit={this.onFormSubmit} />
+        <ConstructForm
+          data={this.state.categories}
+          onSubmit={this.onFormSubmit} />
       </Page>
     )
   }

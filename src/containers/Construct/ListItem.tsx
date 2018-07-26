@@ -3,15 +3,16 @@ import styled from 'react-emotion'
 
 export interface Props {
   type: string
-  value: string
+  id: string
+  label: string
   selected: boolean
   onClick: (key: string, value: string) => void
 }
 
 export default class ListItem extends PureComponent<Props> {
-  onClick = () => this.props.onClick(this.props.type, this.props.value)
+  onClick = () => this.props.onClick(this.props.type, this.props.id)
   render() {
-    return <Container {...this.props} onClick={this.onClick}>{this.props.value}</Container>
+    return <Container {...this.props} onClick={this.onClick}>{this.props.label}</Container>
   }
 }
 

@@ -3,26 +3,32 @@ import styled from 'react-emotion'
 
 import Page from 'components/Page'
 
-const code = `interface IDataConsumer
-{
-  push_data(data_type, data)
-  only oracle
+interface Props {}
 
-  private request_data(data_type)
+interface State {
+  contract: string
+  instructions: string
+}
 
-  private check_data_age()
-  throws
-  // throws if data is outdated
-  // some contract code
-}`
+export default class ContractCodePage extends PureComponent<Props, State> {
+  state = {
+    contract: '',
+    instructions: ''
+  } as State
 
-export default class ContractCodePage extends PureComponent {
+  async componentWillMount() {
+    const { form: { provider, pair, updateAfter, retireAfter } } = window.store
+    const res = await fetch(`http://localhost:8081/api/generate/eth/crypto/${provider}/${pair}?updatefreq=${updateAfter}&lifetime=${retireAfter}`)
+    const json = await res.json() as State
+    this.setState(json)
+  }
+
   render() {
     return (
       <Page title='Contract Code'>
         <Container>
           <Column>
-          <Code readonly value={code}/>
+          <Code readOnly value={this.state.contract}/>
           </Column>
           <Column>
             <H1>Instructions</H1>
@@ -30,6 +36,7 @@ export default class ContractCodePage extends PureComponent {
               Copy this code to your smart contract.
               Use <InlineCode>request_data()</InlineCode> to request new data from oracle.
               Data will be pushed to <InlineCode>push_data()</InlineCode> in the specified <Link href='#'>format</Link>
+              <p>{ this.state.instructions }</p>
             </Desc>
           </Column>
         </Container>

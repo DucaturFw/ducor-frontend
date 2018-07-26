@@ -1,7 +1,8 @@
-import React, { PureComponent, ChangeEvent } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'react-emotion'
 
 import ListItem from './ListItem'
+import { Category } from './index'
 import InputNumber from 'components/Input/Number'
 
 export interface State {
@@ -12,6 +13,7 @@ export interface State {
 }
 
 export interface Props {
+  data?: Category[]
   onSubmit: (form: State) => void
 }
 
@@ -21,11 +23,6 @@ export default class ConstructForm extends PureComponent<Props, State> {
     pair: '',
     updateAfter: '10',
     retireAfter: '11',
-  }
-
-  data = {
-    pairs: [ 'ETH / BTC', 'ETH / USD', 'BTC / USD', 'EOS / ETH', 'EOS / BTC' ],
-    providers: [ 'TOP-10', 'Binance', 'CoinMarketCap', 'HitBTC', 'Casino Yobit' ]
   }
 
   onSelect = (key: string, value: string) =>
@@ -38,16 +35,24 @@ export default class ConstructForm extends PureComponent<Props, State> {
     this.props.onSubmit(this.state)
 
   render() {
+    const { data } = this.props
+    if (!data) return <div />
+
+    const category = data.filter(({ name }) => name === 'crypto')[0]
+    const pairs = category.providers.map(({ types }) => types).reduce((a, b) => [ ...a, ...b], [])
+    const providers = category.providers.map(({ id, name }) => [ id, name ])
+
     return (
       <FormContainer>
         <Column>
           <ColumnTitle>Currency pair</ColumnTitle>
           <List>
-            {this.data.pairs.map(val =>
+            {pairs.map(val =>
               <ListItem
                 key={val}
                 type='pair'
-                value={val}
+                id={val}
+                label={val}
                 onClick={this.onSelect}
                 selected={this.state.pair === val} />
             )}
@@ -57,13 +62,14 @@ export default class ConstructForm extends PureComponent<Props, State> {
         <Column>
           <ColumnTitle>Data provider</ColumnTitle>
           <List>
-            {this.data.providers.map(val =>
+            {providers.map(([ id, name ]) =>
               <ListItem
-                key={val}
+                key={id}
                 type='provider'
-                value={val}
+                id={id}
+                label={name}
                 onClick={this.onSelect}
-                selected={this.state.provider === val} />
+                selected={this.state.provider === id} />
             )}
           </List>
         </Column>
@@ -118,7 +124,6 @@ const Column = styled('div')({
   padding: '4vh 2vw',
   position: 'relative',
   textAlign: 'center',
-  justifyContent: 'center',
   width: '30%',
   minWidth: '14rem'
 })
