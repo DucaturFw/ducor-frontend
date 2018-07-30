@@ -1,14 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import createHistory from 'history/createBrowserHistory'
-
-import App from 'containers/App'
 
 const MOUNT_NODE = document.getElementById('app')
-const history = createHistory()
 
-const render = () => {
+const render = (App: JSX.Element) => {
   ReactDOM.render((
     <BrowserRouter>
       <App/>
@@ -19,8 +15,8 @@ const render = () => {
 if (module.hot) {
   module.hot.accept([ './containers/App' ], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-    render()
+    render(require('containers/App').default)
   })
 }
 
-render()
+render(require('containers/App').default)
