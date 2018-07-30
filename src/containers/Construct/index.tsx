@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 
+import { API_URL } from 'config'
+
 import ConstructForm, { State as Form } from './ConstructForm'
 import { withRouter } from 'react-router'
 import { History } from 'history'
@@ -53,7 +55,7 @@ class ConstructPage extends PureComponent<Props, State> {
   }
   
   async componentWillMount() {
-    const res = await fetch('http://localhost:8081/api/config')
+    const res = await fetch(`${API_URL}/api/config`)
     const json = await res.json() as { categories: Category[] }
     this.setState(json)
   }
