@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
 import Menu from 'components/Menu'
@@ -8,7 +9,9 @@ export default class Header extends PureComponent {
     return (
       <HeaderContainer src={require('./bg.svg')}>
         <ToLeftContainer>
-          <Logo src={require('./logo.svg')} />
+          <Link to='/'>
+            <Logo src={require('./logo.svg')} />
+          </Link>
           <Menu/>
         </ToLeftContainer>
         <HamburgerIcon src={require('./hamburger.svg')} />
