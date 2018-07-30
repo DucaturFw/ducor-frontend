@@ -1,7 +1,7 @@
 {
-  "name": "ducatur-ui",
+  "name": "ducor-frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server/index.ts",
   "license": "MIT",
   "dependencies": {
     "@types/clean-webpack-plugin": "^0.1.2",
@@ -28,7 +28,8 @@
     "typescript": "^2.9.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "ts-node": "^7.0.0"
   },
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js",
@@ -39,7 +40,6 @@
   "devDependencies": {
     "@koa/cors": "2",
     "koa": "^2.5.2",
-    "koa-router": "^7.4.0",
-    "ts-node": "^7.0.0"
+    "koa-router": "^7.4.0"
   }
 }
