@@ -28,7 +28,7 @@ const HeaderContainer = styled('header')(({ src }: { src: string }) => ({
   justifyContent: 'space-between',
   padding: '0 10vw',
   alignItems: 'center',
-  height: '6rem',
+  height: '14vh',
   boxSizing: 'border-box',
   boxShadow: '0 1rem 2rem rgba(0, 0, 0, .5)'
 }))

@@ -20,7 +20,7 @@ export default class Header extends PureComponent {
 }
 
 const Root = styled('footer')({
-  minHeight: '6rem',
+  height: '14vh',
   display: 'flex',
   flexFlow: 'row wrap',
   width: '80vw',

@@ -36,8 +36,10 @@ const Root = styled('div')({
 
 const Main = styled('main')(({ theme }) => ({
   background: theme.mainBackgroundColor,
-  minHeight: '61vh',
-  padding: '2rem 0',
+  minHeight: 'calc(100vh - (14vh * 2))',
+  display: 'flex',
+  alignItems: 'center',
+  flexFlow: 'column nowrap',
   '&::before': {
     boxShadow: '0 .75rem 2rem rgba(0, 0, 0, .5)',
     content: '""',
@@ -57,11 +59,12 @@ const Main = styled('main')(({ theme }) => ({
 }))
 
 const H1 = styled('h1')(({ theme }) => ({
+  display: 'block',
   textAlign: 'center',
   color: theme.titleColor,
   textTransform: 'uppercase',
   fontWeight: 'normal',
-  paddingBottom: '1.5rem',
+  padding: '2rem',
   margin: 0,
 }))
 
@@ -69,7 +72,6 @@ const Container = styled('div')(({ theme }) => ({
   background: theme.lightColor,
   minWidth: '60vw',
   maxWidth: '90vw',
-  margin: 'auto',
   boxShadow: '0 1rem 3rem rgba(163, 171, 186, .4)',
   borderRadius: '.35rem',
   boxSizing: 'border-box',
