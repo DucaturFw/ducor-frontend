@@ -55,7 +55,7 @@ class ConstructPage extends PureComponent<Props, State> {
   }
   
   async componentWillMount() {
-    const res = await fetch(`${API_URL}/api/config`)
+    const res = await fetch(`${API_URL}/config`)
     const json = await res.json() as { categories: Category[] }
     this.setState(json)
   }
