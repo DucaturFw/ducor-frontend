@@ -38,14 +38,30 @@ export default class HomePage extends PureComponent {
 
 const OptionsContainer = styled('div')({
   display: 'flex',
-  flexFlow: 'row wrap',
+  flexFlow: 'column wrap',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
+  padding: '10vh 2vw',
+  '@media (min-width: 760px)': {
+    flexFlow: 'row wrap',
+  }
 })
 
-const UndecoratedLink = styled(Link)({
+const UndecoratedLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
-  height: '50vh',
   display: 'flex',
-  alignItems: 'center',
-})
+  flexFlow: 'column nowrap',
+  border: '3px solid transparent',
+  borderRadius: '.3rem',
+  boxSizing: 'border-box',
+  height: '32vh',
+  width: '100%',
+  padding: '1rem',
+  alignItems: 'stretch',
+  ':hover': {
+    border: `3px solid ${theme.borderColor}`,
+  },
+  '@media (min-width: 760px)': {
+    width: '20vw',
+  }
+}))
