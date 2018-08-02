@@ -16,8 +16,8 @@ app.get('*', (req, res) =>
 
 let PORT = process.env.DUCOR_FRONT_PORT
 
-console.log('starting front server')
+console.log(`starting front server on ${PORT}`)
 app.listen(PORT, () =>
 {
-	console.log('front server started')
+	console.log(`front server started on ${PORT}`)
 })
