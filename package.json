@@ -24,22 +24,29 @@
     "react-router-dom": "^4.3.1",
     "svg-url-loader": "^2.3.2",
     "ts-loader": "^4.4.2",
+    "ts-node": "^7.0.0",
     "tsconfig-paths": "^3.4.2",
     "typescript": "^2.9.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.4",
-    "ts-node": "^7.0.0"
+    "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js",
     "build": "webpack --config=webpack.prod.config.js",
-    "test": "webpack --config=webpack.prod.config.js",
-    "dev-api": "node ./dev-api"
+    "test-serve": "concurrently -r \"yarn dev-api\" \"yarn server\"",
+    "dev-api": "node ./dev-api",
+    "server": "cross-env DUCOR_FRONT_PORT=3090 ts-node server/index.ts",
+    "test": "cypress run",
+    "ci": "yarn build && server-test test-serve \"3090|3091/config\" test"
   },
   "devDependencies": {
     "@koa/cors": "2",
+    "concurrently": "^3.6.1",
+    "cross-env": "^5.2.0",
+    "cypress": "^3.0.3",
     "koa": "^2.5.2",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "start-server-and-test": "^1.7.0"
   }
 }
