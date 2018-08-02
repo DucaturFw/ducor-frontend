@@ -1,4 +1,4 @@
-import React, { PureComponent, DetailedHTMLProps } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'react-emotion'
 
 import Page from 'components/Page'
@@ -16,13 +16,6 @@ export default class ContractCodePage extends PureComponent<Props, State> {
     contract: '',
     instructions: ''
   } as State
-
-  async componentWillMount() {
-    const { form: { provider, pair, updateAfter, retireAfter } } = window.store
-    const res = await fetch(`${API_URL}/generate/eos/crypto/${provider}/${pair}?updatefreq=${updateAfter}&lifetime=${retireAfter}`)
-    const json = await res.json() as State
-    this.setState(json)
-  }
 
   render() {
     return (

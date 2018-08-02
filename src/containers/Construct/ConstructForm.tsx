@@ -1,23 +1,18 @@
 import React, { PureComponent } from 'react'
 import styled from 'react-emotion'
 
-import ListItem from './ListItem'
-import { Category } from './index'
-import InputNumber from 'components/Input/Number'
+import { Category } from 'reducers'
+import { FormToSend } from 'actions'
 
-export interface State {
-  provider: string
-  pair: string
-  updateAfter: string
-  retireAfter: string
-}
+import InputNumber from 'components/Input/Number'
+import ListItem from './ListItem'
 
 export interface Props {
   data?: Category[]
-  onSubmit: (form: State) => void
+  onSubmit: (form: FormToSend) => void
 }
 
-export default class ConstructForm extends PureComponent<Props, State> {
+export default class ConstructForm extends PureComponent<Props, FormToSend> {
   state = {
     provider: '',
     pair: '',
@@ -35,6 +30,7 @@ export default class ConstructForm extends PureComponent<Props, State> {
     this.props.onSubmit(this.state)
 
   render() {
+    console.log(this.props)
     const { data } = this.props
     if (!data) return <div />
 
