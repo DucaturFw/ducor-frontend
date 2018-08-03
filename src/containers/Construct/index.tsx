@@ -50,8 +50,8 @@ class ConstructPage extends PureComponent<Props, State> {
   } as State
 
   onFormSubmit = (form: Form) => {
-    window.store = { form }
-    this.props.history.push('contractCode')
+    const { pair, provider, updateAfter, retireAfter } = form
+    this.props.history.push(`/contract/eos/crypto/${provider}/${pair}?updatefreq=${updateAfter}&lifetime=${retireAfter}`)
   }
   
   async componentWillMount() {

@@ -4,7 +4,24 @@ import styled from 'react-emotion'
 import Page from 'components/Page'
 import { API_URL } from 'config'
 
-interface Props {}
+export const urlPropsToObject = (url: string): object =>
+  url.split('?')[1] ? url.split('?')[1].split('&').reduce((prev, curr) =>
+    ({ ...prev, [curr.split('=')[0]]: decodeURIComponent(curr.split('=')[1]) }), {}) :
+    {}
+
+interface Props {
+  location: {
+    search: string
+  },
+  match: {
+    params: {
+      name: string
+      pair: string
+      provider: string
+      type: string
+    }
+  }
+}
 
 interface State {
   contract: string
@@ -18,8 +35,11 @@ export default class ContractCodePage extends PureComponent<Props, State> {
   } as State
 
   async componentWillMount() {
-    const { form: { provider, pair, updateAfter, retireAfter } } = window.store
-    const res = await fetch(`${API_URL}/generate/eos/crypto/${provider}/${encodeURIComponent(pair)}?updatefreq=${updateAfter}&lifetime=${retireAfter}`)
+    const { match: { params }, location: { search } } = this.props
+    const { name, pair, provider, type } = params
+    const { lifetime, updatefreq } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
+
+    const res = await fetch(`${API_URL}/generate/${name}/${type}/${provider}/${encodeURIComponent(pair)}?updatefreq=${updatefreq}&lifetime=${lifetime}`)
     const json = await res.json() as State
     this.setState(json)
   }

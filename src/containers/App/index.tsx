@@ -29,7 +29,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/construct" component={ConstructPage} />
-        <Route path="/contractCode" component={ContractCodePage} />
+        <Route path="/contract/:name/:type/:provider/:pair" component={ContractCodePage} />
       </Switch>
     </ThemeProvider>
   )
