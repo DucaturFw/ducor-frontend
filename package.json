@@ -13,7 +13,6 @@
     "@types/webpack": "^4.4.7",
     "@types/webpack-env": "^1.13.6",
     "clean-webpack-plugin": "^0.1.19",
-    "dotenv": "^6.0.0",
     "emotion": "^9.2.6",
     "emotion-theming": "^9.2.6",
     "express": "^4.16.3",
@@ -38,12 +37,6 @@
     "test": "cypress run"
   },
   "devDependencies": {
-    "@koa/cors": "2",
-    "concurrently": "^3.6.1",
-    "cross-env": "^5.2.0",
-    "cypress": "^3.0.3",
-    "koa": "^2.5.2",
-    "koa-router": "^7.4.0",
-    "start-server-and-test": "^1.7.0"
+    "cypress": "^3.0.3"
   }
 }

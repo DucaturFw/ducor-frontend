@@ -2,7 +2,6 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
-const dotenv = require('dotenv')
 
 const getEnvKeys = () => {
   // call dotenv and it will return an Object with a parsed key
@@ -62,7 +61,7 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
-    new webpack.DefinePlugin(getEnvKeys()),
+    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'dist' ]),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',

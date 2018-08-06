@@ -37,7 +37,7 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
-    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT', 'DUCOR_FRONT_PORT', 'DUCOR_FRONT_URL']),
+    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'build' ]),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

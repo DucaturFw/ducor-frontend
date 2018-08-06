@@ -1,0 +1,35 @@
+version: '3'
+services:
+  devapi:
+    build:
+      context: dev-api/
+      dockerfile: Dockerfile-devapi
+    expose:
+      - 3091
+    ports:
+      - "3091:3091"
+  client_test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DUCOR_API_URL=devapi
+        - DUCOR_API_PORT=3091
+    ports:
+      - "80:80"
+    depends_on:
+      - devapi
+  test:
+    build:
+      context: .
+      dockerfile: cypress/Dockerfile-cypress
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      - CYPRESS_URL=client_test
+      - CYPRESS_PORT=80
+    command: "npm run test"
+    depends_on:
+      - devapi
+      - client_test

@@ -5,10 +5,8 @@ COPY package*.json /app/
 RUN npm install --production
 COPY ./ /app/
 
-ARG DUCOR_FRONT_URL
-ARG DUCOR_FRONT_PORT
-ARG DUCOR_API_URL
-ARG DUCOR_API_PORT
+ARG DUCOR_API_URL=localhost
+ARG DUCOR_API_PORT=3091
 
 RUN npm run build --production
 
