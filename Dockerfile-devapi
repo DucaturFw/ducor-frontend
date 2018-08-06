@@ -1,0 +1,34 @@
+FROM keymetrics/pm2:8-alpine
+
+RUN apk add --update \
+    python \
+    python-dev \
+    py-pip \
+    build-base
+
+# Bundle APP files
+COPY dev-api src/
+COPY package*.json ./
+
+# Install app dependencies
+ARG DUCOR_FRONT_URL
+ARG DUCOR_FRONT_PORT
+ARG DUCOR_API_URL
+ARG DUCOR_API_PORT
+
+ENV DUCOR_FRONT_URL=${DUCOR_FRONT_URL}
+ENV DUCOR_FRONT_PORT=${DUCOR_FRONT_PORT}
+ENV DUCOR_API_URL=${DUCOR_API_URL}
+ENV DUCOR_API_PORT=${DUCOR_API_PORT}
+
+RUN npm install --prodction
+RUN npm install koa
+RUN npm install koa-router
+RUN npm install @koa/cors@2
+RUN apk del \
+    python-dev \
+    py-pip \
+    build-base
+# Expose the listening port of your app
+
+CMD [ "pm2-runtime", "start", "src/index.js" ]

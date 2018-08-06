@@ -5,7 +5,12 @@ COPY package*.json /app/
 RUN npm install --production
 COPY ./ /app/
 
-RUN npm run build
+ARG DUCOR_FRONT_URL
+ARG DUCOR_FRONT_PORT
+ARG DUCOR_API_URL
+ARG DUCOR_API_PORT
+
+RUN npm run build --production
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.15

@@ -1,6 +1,6 @@
 describe('My First Test', () =>
 {
-	let URL = 'http://localhost:3090'
+	let URL = `http://${Cypress.env('URL') || 'localhost'}:${Cypress.env('PORT') || '80'}`
 	it('visit main page', () =>
 	{
 		cy.visit(URL)

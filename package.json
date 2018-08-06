@@ -13,6 +13,7 @@
     "@types/webpack": "^4.4.7",
     "@types/webpack-env": "^1.13.6",
     "clean-webpack-plugin": "^0.1.19",
+    "dotenv": "^6.0.0",
     "emotion": "^9.2.6",
     "emotion-theming": "^9.2.6",
     "express": "^4.16.3",
@@ -36,9 +37,10 @@
     "build": "webpack --config=webpack.prod.config.js",
     "test-serve": "concurrently -r \"yarn dev-api\" \"yarn server\"",
     "dev-api": "node ./dev-api",
-    "server": "cross-env DUCOR_FRONT_PORT=3090 ts-node server/index.ts",
+    "server": "ts-node server/index.ts",
     "test": "cypress run",
-    "ci": "yarn build && server-test test-serve \"3090|3091/config\" test"
+    "dotenv": "^6.0.0",
+    "ci": "yarn build && server-test test-serve \"$DUCOR_FRONT_PORT|$DUCOR_API_PORT/config\" test"
   },
   "devDependencies": {
     "@koa/cors": "2",

@@ -43,4 +43,4 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
 
-module.exports = app.listen(3091)
+module.exports = app.listen(process.env.DUCOR_API_PORT)

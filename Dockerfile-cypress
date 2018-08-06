@@ -1,0 +1,11 @@
+# base image
+FROM cypress/browsers:chrome67-ff57
+
+# set working directory
+WORKDIR /app
+
+# install cypress
+RUN npm install cypress
+
+ENV CYPRESS_URL=client
+ENV CYPRESS_PORT=80
