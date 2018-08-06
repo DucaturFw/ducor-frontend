@@ -35,12 +35,7 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js",
     "build": "webpack --config=webpack.prod.config.js",
-    "test-serve": "concurrently -r \"yarn dev-api\" \"yarn server\"",
-    "dev-api": "node ./dev-api",
-    "server": "ts-node server/index.ts",
-    "test": "cypress run",
-    "dotenv": "^6.0.0",
-    "ci": "yarn build && server-test test-serve \"$DUCOR_FRONT_PORT|$DUCOR_API_PORT/config\" test"
+    "test": "cypress run"
   },
   "devDependencies": {
     "@koa/cors": "2",
