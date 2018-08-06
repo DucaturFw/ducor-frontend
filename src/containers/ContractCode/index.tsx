@@ -1,8 +1,8 @@
 import React, { PureComponent, DetailedHTMLProps } from 'react'
 import styled from 'react-emotion'
 
-import Page from 'components/Page'
-import { API_URL } from 'config'
+import Page from '../../components/Page'
+import { API_URL } from '../../config'
 
 export const urlPropsToObject = (url: string): object =>
   url.split('?')[1] ? url.split('?')[1].split('&').reduce((prev, curr) =>
