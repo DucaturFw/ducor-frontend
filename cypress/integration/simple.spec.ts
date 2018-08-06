@@ -22,7 +22,7 @@ describe('My First Test', () =>
 		cy.contains('Binance').click()
 		cy.contains('Generate').click()
 
-		cy.url().should('include', "/contractCode")
+		cy.url().should('include', "/contract/eos/crypto/binance/ETH/BTC")
 		cy.contains("eosiolib/eosio.hpp").contains("EOSLIB_SERIALIZE").contains("YOUR_CONTRACT_NAME")
 		cy.contains("eos_contract_instructions")
 	})
