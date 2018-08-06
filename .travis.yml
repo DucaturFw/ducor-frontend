@@ -9,5 +9,11 @@ install:
   - yarn
 script:
   - yarn ci
-notifications:
-  - secure: oqamcgrgIuLRKj7FAya5PTjDb6OFJursqL9/Z7PK8VRQwxB2knFmCoXHYygXL1yarL/V8BieHLH8XjDGfy/UXGBGZayHO2HFeAC8TRWeRe5zIKc/CCFCNNiwT3gUPSJNF+xrPecGJTvF2zyUeyzY1dMyMtzmCmGjKV0csCDrTB0FfQbujB6gir79SMUk5bK6jN4hs0yQ2b2YlIQcWKWNZRfP/vpiIg2QIrR2i4qvs/8W3orXUcbqjEf9Ohn89/e0QXAzjDIb8hJrSFSyk7Gdg6rr5P/ds2wun7SlQFcVyQZ/iggJvrJsEZFbDvFiF+mv/TOxSKSxjRVKg3JQT5eXw0mGpupXTtBQhyRTZDbIWdwgUoEtlgCVkt+jzV7CoKsAEPaJLlBDpe7at073BNvxWV/s5cQu0n+VzzTFOy8/ALXaiR69nhxSqSZGkBmBwP5YgjXCbBkg9Gduq3gMFd1AIuXfv9gsvCNL5nItNrxo1KkfA2dAaUTObJs9EGgXWoAq+AvXHUuoe5khvIUViAbMw5OHZEuYAQIhQf8YDUEVy+kuClQaHbB5gKncHtdWiCw/R3SUPLCN4s5kLRNzbWGfh+3JEWLApASuLPRRnsiFFelbtBETWz1r+i0hO9l57MfHYQ6pM8lCB3NkRA6O4LbOdPJLzV3sAfHYaqGxbcguwRQ=
+after_success:
+  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
