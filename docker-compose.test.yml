@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: cypress/Dockerfile-cypress
     volumes:
-      - ./:/app
+      - ./cypress:/app/cypress
     working_dir: /app
     environment:
       - CYPRESS_URL=client_test
