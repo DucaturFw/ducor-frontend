@@ -5,7 +5,11 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
+services:
+  - docker
 install:
   - yarn
 script:
-  - yarn ci
+  - docker-compose -f docker-compose.test.yml run cypress
+after_script:
+  - docker-compose down
