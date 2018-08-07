@@ -12,7 +12,7 @@ install:
 script:
   - docker-compose -f docker-compose.test.yml run cypress
 after_script:
-  - docker-compose down
+  - docker-compose -f docker-compose.test.yml down
 after_success:
   - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
