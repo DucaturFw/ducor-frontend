@@ -19,19 +19,3 @@ services:
       - "80:80"
     depends_on:
       - devapi
-  cypress:
-    build:
-      context: .
-      dockerfile: cypress/Dockerfile-cypress
-    volumes:
-      - ./cypress:/app/cypress
-    working_dir: /app
-    environment:
-      - CYPRESS_DUC_URL=localhost
-      - CYPRESS_DUC_PORT=80
-      - CYPRESS_PORT=8000
-    command: "npm run test"
-    network_mode: 'host'
-    depends_on:
-      - devapi
-      - client_test

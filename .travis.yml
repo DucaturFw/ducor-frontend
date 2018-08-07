@@ -2,17 +2,17 @@ language: node_js
 node_js:
   - "node"
 cache:
-  bundler: true
   directories:
-    - $HOME/docker
     - ~/.npm
     - ~/.cache
 services:
   - docker
 install:
-  - yarn
+  - yarn add cypress --silent
+before-script:
+  - docker-compose -f docker-compose.test.yml run -d client_test
 script:
-  - docker-compose -f docker-compose.test.yml run cypress
+  - yarn test
 after_script:
   - docker-compose -f docker-compose.test.yml down
 after_success:
