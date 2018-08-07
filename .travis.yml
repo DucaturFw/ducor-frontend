@@ -8,12 +8,10 @@ cache:
 services:
   - docker
 install:
-  - yarn add cypress --silent
-before_script:
-  - docker-compose -f docker-compose.test.yml run -d client_test
+  - yarn
 script:
+  - docker-compose -f docker-compose.test.yml up -d --build
   - yarn test
-after_script:
   - docker-compose -f docker-compose.test.yml down
 after_success:
   - wget https://raw.githubusercontent.com/k3rn31p4nic/travis-ci-discord-webhook/master/send.sh
