@@ -3,18 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 
-const getEnvKeys = () => {
-  // call dotenv and it will return an Object with a parsed key
-  const env = dotenv.config().parsed;
-
-  // reduce it to a nice object, the same as before
-  const envKeys = Object.keys(env).reduce((prev, next) => {
-      prev[`process.env.${next}`] = JSON.stringify(env[next]);
-      return prev;
-  }, {});
-  return envKeys;
-};
-
 module.exports = {
   entry: {
     vendor: [ 'react', 'react-dom', 'emotion', 'react-emotion' ],
@@ -61,7 +49,7 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
-    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
+    new webpack.EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'dist' ]),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',

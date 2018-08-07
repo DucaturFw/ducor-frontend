@@ -4,7 +4,7 @@ FROM keymetrics/pm2:8-alpine
 COPY * ./
 
 # Install app dependencies
-RUN npm install --production
+RUN yarn --production
 
 # Expose the listening port of your app
 EXPOSE 3091

@@ -11,5 +11,5 @@ COPY cypress/* cypress/
 COPY package*.json ./
 COPY cypress.json ./
 
-ENV CYPRESS_URL=client
-ENV CYPRESS_PORT=80
+ENV CYPRESS_DUC_URL=client_test
+ENV CYPRESS_DUC_PORT=80

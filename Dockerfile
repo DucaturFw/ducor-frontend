@@ -2,13 +2,13 @@
 FROM tiangolo/node-frontend:10 as build-stage
 WORKDIR /app
 COPY package*.json /app/
-RUN npm install --production
+RUN yarn --production
 COPY ./ /app/
 
 ARG DUCOR_API_URL=localhost
 ARG DUCOR_API_PORT=3091
 
-RUN npm run build --production
+RUN yarn build --production
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.15
