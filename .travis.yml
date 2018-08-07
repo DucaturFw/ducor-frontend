@@ -9,7 +9,7 @@ services:
   - docker
 install:
   - yarn add cypress --silent
-before-script:
+before_script:
   - docker-compose -f docker-compose.test.yml run -d client_test
 script:
   - yarn test
