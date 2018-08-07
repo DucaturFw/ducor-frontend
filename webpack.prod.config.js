@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { HashedModuleIdsPlugin } = require('webpack')
+const { HashedModuleIdsPlugin, EnvironmentPlugin } = require('webpack')
 
 module.exports = {
   entry: './src/app.tsx',
@@ -37,6 +37,7 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
+    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'build' ]),
     new HtmlWebpackPlugin({
       template: 'src/index.html',

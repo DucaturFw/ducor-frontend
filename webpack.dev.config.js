@@ -49,12 +49,13 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
+    new webpack.EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'dist' ]),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',
       template: 'src/index.html'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   output: {
     path: path.join(__dirname, '../dist'),

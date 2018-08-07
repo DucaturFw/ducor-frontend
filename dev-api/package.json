@@ -1,0 +1,12 @@
+{
+  "name": "dev-api",
+  "description": "API response mock",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "2",
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0"
+  }
+}

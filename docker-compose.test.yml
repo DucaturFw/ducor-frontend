@@ -1,0 +1,21 @@
+version: "3"
+services:
+  devapi:
+    build:
+      context: dev-api/
+      dockerfile: Dockerfile
+    expose:
+      - 3091
+    ports:
+      - "3091:3091"
+  client_test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DUCOR_API_URL=localhost
+        - DUCOR_API_PORT=3091
+    ports:
+      - "8080:80"
+    depends_on:
+      - devapi

@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:3091"
+export const API_URL = `http://${process.env.DUCOR_API_URL}:${process.env.DUCOR_API_PORT}`
