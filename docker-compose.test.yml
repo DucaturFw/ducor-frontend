@@ -23,8 +23,6 @@ services:
     build:
       context: .
       dockerfile: cypress/Dockerfile-cypress
-      cache_from:
-        - cypress/browsers:chrome67-ff57
     volumes:
       - ./cypress:/app/cypress
     working_dir: /app
