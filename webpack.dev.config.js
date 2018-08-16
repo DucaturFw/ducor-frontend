@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 
+require('dotenv').config()
+
 module.exports = {
   entry: {
     vendor: [ 'react', 'react-dom', 'emotion', 'react-emotion' ],

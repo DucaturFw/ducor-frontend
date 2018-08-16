@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const { HashedModuleIdsPlugin, EnvironmentPlugin } = require('webpack')
 
+require('dotenv').config()
+
 module.exports = {
   entry: './src/app.tsx',
   mode: 'production',
