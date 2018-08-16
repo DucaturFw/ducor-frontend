@@ -39,7 +39,7 @@ export default class ContractCodePage extends PureComponent<Props, State> {
     const { name, pair, provider, type } = params
     const { lifetime, updatefreq } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
 
-    const res = await fetch(`${API_URL}/generate/${name}/${type}/${provider}/${encodeURIComponent(pair)}?updatefreq=${updatefreq}&lifetime=${lifetime}`)
+    const res = await fetch(`${API_URL}/generate/${name}/${type}/${provider}?config=${encodeURIComponent(JSON.stringify({ pair }))}&updatefreq=${updatefreq}&lifetime=${lifetime}`)
     const json = await res.json() as State
     this.setState(json)
   }
