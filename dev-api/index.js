@@ -43,4 +43,8 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
 
-module.exports = app.listen(3091)
+console.log("starting server...")
+module.exports = app.listen(3091, () =>
+{
+  console.log("server started")
+})
