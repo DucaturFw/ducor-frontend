@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const { HashedModuleIdsPlugin, EnvironmentPlugin } = require('webpack')
+const { HashedModuleIdsPlugin, EnvironmentPlugin, DefinePlugin } = require('webpack')
 
 require('dotenv').config()
 
@@ -61,6 +61,12 @@ module.exports = {
       hashFunction: 'sha256',
       hashDigest: 'hex',
       hashDigestLength: 20,
+    }),
+    new DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        BROWSER: JSON.stringify('true')
+      }
     }),
   ],
   output: {

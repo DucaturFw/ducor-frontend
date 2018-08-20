@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack')
 
 require('dotenv').config()
 
@@ -57,7 +57,13 @@ module.exports = {
       title: 'Hot Module Replacement',
       template: 'src/index.html'
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new HotModuleReplacementPlugin(),
+    new DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        BROWSER: JSON.stringify('true')
+      }
+    }),
   ],
   output: {
     path: path.join(__dirname, '../dist'),
