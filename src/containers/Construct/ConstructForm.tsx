@@ -45,21 +45,6 @@ export default class ConstructForm extends PureComponent<Props, State> {
     return (
       <FormContainer>
         <Column>
-          <ColumnTitle>Currency pair</ColumnTitle>
-          <List>
-            {pairs.map(val =>
-              <ListItem
-                key={val}
-                type='pair'
-                id={val}
-                label={val}
-                onClick={this.onSelect}
-                selected={this.state.pair === val} />
-            )}
-          </List>
-        </Column>
-        <SeperatorArrow />
-        <Column>
           <ColumnTitle>Data provider</ColumnTitle>
           <List>
             {providers.map(([ id, name ]) =>
@@ -72,6 +57,23 @@ export default class ConstructForm extends PureComponent<Props, State> {
                 selected={this.state.provider === id} />
             )}
           </List>
+          <ListShadow />
+        </Column>
+        <SeperatorArrow />
+        <Column>
+          <ColumnTitle>Currency pair</ColumnTitle>
+          <List>
+            {pairs.map(val =>
+              <ListItem
+                key={val}
+                type='pair'
+                id={val}
+                label={val}
+                onClick={this.onSelect}
+                selected={this.state.pair === val} />
+            )}
+          </List>
+          <ListShadow />
         </Column>
         <SeperatorArrow />
         <Column>
@@ -142,9 +144,18 @@ const ColumnTitle = styled('span')(({ theme }) => ({
 
 const List = styled('ul')({
   display: 'flex',
-  flexFlow: 'column wrap',
+  flexFlow: 'column nowrap',
   listStyle: 'none',
-  padding: 0
+  padding: 0,
+  overflowY: 'scroll',
+  maxHeight: '32vh',
+})
+
+const ListShadow = styled('div')({
+  marginTop: '-2rem',
+  width: '100%',
+  height: '1.5rem',
+  background: 'linear-gradient(transparent 0%, #fff 80%)'
 })
 
 const LabeledInputContainer = styled('div')({
