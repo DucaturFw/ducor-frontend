@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'react-emotion'
 
-import Page from 'components/Page'
-import Contract from 'components/Contract'
 import { API_URL } from 'config'
 import { urlPropsToObject } from 'utils/uri'
+
+import Page from 'components/Page'
+import Contract from './Contract'
 
 interface Props {
   location: {
