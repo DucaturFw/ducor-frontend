@@ -1,13 +1,9 @@
-import React, { PureComponent, DetailedHTMLProps } from 'react'
-import styled from 'react-emotion'
+import React, { PureComponent } from 'react'
 
-import Page from '../../components/Page'
-import { API_URL } from '../../config'
-
-export const urlPropsToObject = (url: string): object =>
-  url.split('?')[1] ? url.split('?')[1].split('&').reduce((prev, curr) =>
-    ({ ...prev, [curr.split('=')[0]]: decodeURIComponent(curr.split('=')[1]) }), {}) :
-    {}
+import Page from 'components/Page'
+import Contract from 'components/Contract'
+import { API_URL } from 'config'
+import { urlPropsToObject } from 'utils/uri'
 
 interface Props {
   location: {
@@ -37,7 +33,7 @@ export default class ContractCodePage extends PureComponent<Props, State> {
   async componentWillMount() {
     const { match: { params }, location: { search } } = this.props
     const { name, pair, provider, type } = params
-    const { lifetime, updatefreq } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
+    const { lifetime = 10, updatefreq = 10 } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
 
     const res = await fetch(`${API_URL}/generate/${name}/${type}/${provider}?config=${encodeURIComponent(JSON.stringify({ pair }))}&updatefreq=${updatefreq}&lifetime=${lifetime}`)
     const json = await res.json() as State
@@ -47,66 +43,10 @@ export default class ContractCodePage extends PureComponent<Props, State> {
   render() {
     return (
       <Page title='Contract Code'>
-        <Container>
-          <Column>
-          <Code readOnly value={this.state.contract}/>
-          </Column>
-          <Column>
-            <H1>Instructions</H1>
-            <Desc>
-              Copy this code to your smart contract.
-              Use <InlineCode>request_data()</InlineCode> to request new data from oracle.
-              Data will be pushed to <InlineCode>push_data()</InlineCode> in the specified <Link href='#'>format</Link>
-              <p>{ this.state.instructions }</p>
-            </Desc>
-          </Column>
-        </Container>
+        <Contract
+          contract={this.state.contract}
+          instructions={this.state.instructions} />
       </Page>
     )
   }
 }
-
-const Container = styled('div')({
-  display: 'flex',
-  flexFlow: 'row nowrap',
-  justifyContent: 'center',
-})
-
-const Column = styled('div')({
-  margin: '4vw'
-})
-
-const H1 = styled('h1')(({ theme }) => ({
-  color: theme.titleColor,
-  fontWeight: 'normal',
-  fontSize: '1.4rem',
-}))
-
-const Code = styled('textarea')(({ theme }) => ({
-  width: '50vw',
-  height: '38vh',
-  color: theme.menuLinkColor,
-  border: '1px solid #DFE0E1',
-  borderRadius: '.5rem',
-  padding: '2rem',
-  boxSizing: 'border-box',
-} as any))
-
-const InlineCode = styled('span')(({ theme }) => ({
-  fontFamily: 'monospace',
-  background: theme.mainBackgroundColor,
-  color: theme.menuLinkColor,
-  padding: '.25em'
-}))
-
-const Desc = styled('div')({
-  maxWidth: '19rem',
-  lineHeight: '1.64rem',
-})
-
-const Link = styled('a')(({ theme }) => ({
-  color: theme.activeColor,
-  ':hover': {
-    color: `lighten(${theme.activeColor}, 50%)`,
-  }
-}))
