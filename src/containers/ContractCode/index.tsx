@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'react-emotion'
 
 import Page from 'components/Page'
 import Contract from 'components/Contract'
@@ -24,14 +26,14 @@ interface State {
   instructions: string
 }
 
-export default class ContractCodePage extends PureComponent<Props, State> {
+export default class ContractCodePage extends Component<Props, State> {
   state = {
     contract: '',
     instructions: ''
   } as State
 
-  async componentWillMount() {
-    const { match: { params }, location: { search } } = this.props
+  fetchData = async (props: Props) => {
+    const { match: { params }, location: { search } } = props
     const { name, pair, provider, type } = params
     const { lifetime = 10, updatefreq = 10 } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
 
@@ -40,13 +42,45 @@ export default class ContractCodePage extends PureComponent<Props, State> {
     this.setState(json)
   }
 
+  componentWillReceiveProps(nextProps: Props) {
+    this.fetchData(nextProps)
+  }
+
+  componentWillMount() {
+    this.fetchData(this.props)
+  }
+
   render() {
+    const { contract, instructions } = this.state
+    const { match: { params }, location: { search } } = this.props
+    const { name, pair, provider, type } = params
+    const alternateProvider = name === 'eos' ? 'eth' : 'eos'
+    const alternateLink = `/contract/${alternateProvider}/${type}/${provider}/${pair || ''}${search}`
+
     return (
-      <Page title='Contract Code'>
+      <Page title={`Contract Code ${name.toUpperCase()}`}>
+        <ProviderSwitcher>
+          <StyledLink to={alternateLink}>
+            [ switch to {`${alternateProvider.toUpperCase()}`} ]
+          </StyledLink>
+        </ProviderSwitcher>
         <Contract
-          contract={this.state.contract}
-          instructions={this.state.instructions} />
+          contract={contract}
+          instructions={instructions} />
       </Page>
     )
   }
 }
+
+const ProviderSwitcher = styled('div')({
+  position: 'absolute',
+  marginLeft: '70vw',
+  marginTop: '-4rem'
+})
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.activeColor,
+  ':hover': {
+    color: `lighten(${theme.activeColor}, 50%)`,
+  }
+}))
