@@ -42,4 +42,11 @@ describe('My First Test', () =>
 		cy.get('#app').should('contain', 'test/jest')
 		cy.get('#app').should('not.contain', 'ETH/BTC')
 	})
+	it('should generate random number contract', () =>
+	{
+		cy.visit(URL)
+
+		cy.contains('Random').click()
+		cy.url().should('include', '/contract')
+	})
 })
