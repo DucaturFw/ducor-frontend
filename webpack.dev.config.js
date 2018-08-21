@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const { HotModuleReplacementPlugin, DefinePlugin, EnvironmentPlugin } = require('webpack')
 
 require('dotenv').config()
 
@@ -51,13 +51,19 @@ module.exports = {
     mainFields: ['browser', 'jsnext:main', 'main']
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
+    new EnvironmentPlugin(['DUCOR_API_URL', 'DUCOR_API_PORT']),
     new CleanWebpackPlugin([ 'dist' ]),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',
       template: 'src/index.html'
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new HotModuleReplacementPlugin(),
+    new DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        BROWSER: JSON.stringify('true')
+      }
+    }),
   ],
   output: {
     path: path.join(__dirname, '../dist'),

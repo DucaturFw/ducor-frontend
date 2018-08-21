@@ -39,26 +39,11 @@ export default class ConstructForm extends PureComponent<Props, State> {
     if (!data) return <div />
 
     const category = data.filter(({ name }) => name === 'crypto')[0]
-    const pairs = category.providers.map(({ types }) => types).reduce((a, b) => [ ...a, ...b], [])
+    const pairs = this.state.provider ? category.providers.filter(p => p.id == this.state.provider).map(({ types }) => types).reduce((a, b) => [ ...a, ...b], []) : []
     const providers = category.providers.map(({ id, name }) => [ id, name ])
 
     return (
       <FormContainer>
-        <Column>
-          <ColumnTitle>Currency pair</ColumnTitle>
-          <List>
-            {pairs.map(val =>
-              <ListItem
-                key={val}
-                type='pair'
-                id={val}
-                label={val}
-                onClick={this.onSelect}
-                selected={this.state.pair === val} />
-            )}
-          </List>
-        </Column>
-        <SeperatorArrow />
         <Column>
           <ColumnTitle>Data provider</ColumnTitle>
           <List>
@@ -72,6 +57,23 @@ export default class ConstructForm extends PureComponent<Props, State> {
                 selected={this.state.provider === id} />
             )}
           </List>
+          <ListShadow />
+        </Column>
+        <SeperatorArrow />
+        <Column>
+          <ColumnTitle>Currency pair</ColumnTitle>
+          <List>
+            {pairs.map(val =>
+              <ListItem
+                key={val}
+                type='pair'
+                id={val}
+                label={val}
+                onClick={this.onSelect}
+                selected={this.state.pair === val} />
+            )}
+          </List>
+          <ListShadow />
         </Column>
         <SeperatorArrow />
         <Column>
@@ -142,9 +144,18 @@ const ColumnTitle = styled('span')(({ theme }) => ({
 
 const List = styled('ul')({
   display: 'flex',
-  flexFlow: 'column wrap',
+  flexFlow: 'column nowrap',
   listStyle: 'none',
-  padding: 0
+  padding: 0,
+  overflowY: 'scroll',
+  maxHeight: '32vh',
+})
+
+const ListShadow = styled('div')({
+  marginTop: '-2rem',
+  width: '100%',
+  height: '1.5rem',
+  background: 'linear-gradient(transparent 0%, #fff 80%)'
 })
 
 const LabeledInputContainer = styled('div')({

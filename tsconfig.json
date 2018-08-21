@@ -9,7 +9,11 @@
     "sourceMap": true,
     "target": "es5",
     "baseUrl": "./src/",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2015"
+    ]
   },
   "exclude": [
     "dist",

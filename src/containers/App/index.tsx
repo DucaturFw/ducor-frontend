@@ -23,14 +23,12 @@ const theme = {
   lightColor: '#fff',
 }
 
-export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/construct" component={ConstructPage} />
-        <Route path="/contract/:name/:type/:provider/:pair" component={ContractCodePage} />
-      </Switch>
-    </ThemeProvider>
-  )
-}
+export default () => (
+  <ThemeProvider theme={theme}>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/construct" component={ConstructPage} />
+      <Route path="/contract/:name/:type/:provider/:pair?" component={ContractCodePage} />
+    </Switch>
+  </ThemeProvider>
+)
