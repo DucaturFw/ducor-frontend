@@ -17,7 +17,7 @@ router.get('/config', ctx => {
     categories: [
       {
         "name": "crypto",
-        "types": ["eth/btc", "ducat/eth", "ETH/BTC", "LTC/BTC", "BNB/BTC", "NEO/BTC", "QTUM/ETH", "EOS/ETH"],
+        "types": ["eth/btc", "ducat/eth", "test/jest", "ETH/BTC", "LTC/BTC", "BNB/BTC", "NEO/BTC", "QTUM/ETH", "EOS/ETH"],
         "providers": [
           {
             "id": "binance",
@@ -27,7 +27,7 @@ router.get('/config', ctx => {
           {
             "id": "ducatur",
             "name": "Ducatur Crypto",
-            "types": ["eth/btc", "ducat/eth"]
+            "types": ["eth/btc", "ducat/eth", "test/jest"]
           }
         ]
       },

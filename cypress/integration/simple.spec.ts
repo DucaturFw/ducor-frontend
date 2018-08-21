@@ -26,4 +26,19 @@ describe('My First Test', () =>
 		cy.contains("eosiolib/eosio.hpp").contains("EOSLIB_SERIALIZE").contains("YOUR_CONTRACT_NAME")
 		cy.contains("eos_contract_instructions")
 	})
+	it('should show different pairs for different providers', () =>
+	{
+		cy.visit(`${URL}/construct`)
+
+		cy.contains('Binance')
+		cy.contains('Ducatur Crypto')
+
+		cy.contains('Binance').click()
+		cy.get('#app').should('contain', 'ETH/BTC')
+		cy.get('#app').should('not.contain', 'test/jest')
+		
+		cy.contains('Ducatur Crypto').click()
+		cy.get('#app').should('contain', 'test/jest')
+		cy.get('#app').should('not.contain', 'ETH/BTC')
+	})
 })
