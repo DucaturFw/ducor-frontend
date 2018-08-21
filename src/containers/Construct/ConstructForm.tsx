@@ -39,7 +39,7 @@ export default class ConstructForm extends PureComponent<Props, State> {
     if (!data) return <div />
 
     const category = data.filter(({ name }) => name === 'crypto')[0]
-    const pairs = category.providers.map(({ types }) => types).reduce((a, b) => [ ...a, ...b], [])
+    const pairs = this.state.provider ? category.providers.filter(p => p.id == this.state.provider).map(({ types }) => types).reduce((a, b) => [ ...a, ...b], []) : []
     const providers = category.providers.map(({ id, name }) => [ id, name ])
 
     return (

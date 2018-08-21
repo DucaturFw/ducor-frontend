@@ -9,8 +9,9 @@ describe('My First Test', () =>
 	{
 		cy.visit(`${URL}/construct`)
 
-		cy.contains('ETH/BTC')
 		cy.contains('Generate')
+		cy.contains('Binance').click()
+		cy.contains('ETH/BTC')
 	})
 	it('generate contract', () =>
 	{
@@ -18,8 +19,8 @@ describe('My First Test', () =>
 
 		cy.contains('Cryptocurrency').click()
 		cy.url().should('include', '/construct')
-		cy.contains('ETH/BTC').click()
 		cy.contains('Binance').click()
+		cy.contains('ETH/BTC').click()
 		cy.contains('Generate').click()
 
 		cy.url().should('include', "/contract/eos/crypto/binance/ETH%2FBTC")
