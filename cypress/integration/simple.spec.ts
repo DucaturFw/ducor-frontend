@@ -9,7 +9,6 @@ describe('My First Test', () =>
 	{
 		cy.visit(`${URL}/construct`)
 
-		cy.contains('Generate')
 		cy.contains('Binance').click()
 		cy.contains('ETH/BTC')
 	})
