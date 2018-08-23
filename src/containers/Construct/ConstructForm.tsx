@@ -160,7 +160,7 @@ const List = styled('ul')({
   flexFlow: 'column nowrap',
   listStyle: 'none',
   padding: 0,
-  overflowY: 'scroll',
+  overflowY: 'auto',
   maxHeight: '32vh',
 })
 
