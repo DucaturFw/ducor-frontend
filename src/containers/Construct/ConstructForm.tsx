@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import styled from 'react-emotion'
 
 import ListItem from './ListItem'
@@ -37,10 +37,14 @@ export default class ConstructForm extends PureComponent<Props, State> {
   render() {
     const { data } = this.props
     if (!data) return <div />
+    const { provider, pair } = this.state
 
     const category = data.filter(({ name }) => name === 'crypto')[0]
-    const pairs = this.state.provider ? category.providers.filter(p => p.id == this.state.provider).map(({ types }) => types).reduce((a, b) => [ ...a, ...b], []) : []
     const providers = category.providers.map(({ id, name }) => [ id, name ])
+    const pairs = provider ? category.providers
+      .filter(p => p.id == provider)
+      .map(({ types }) => types)
+      .reduce((a, b) => [ ...a, ...b], []) : []
 
     return (
       <FormContainer>
@@ -54,59 +58,68 @@ export default class ConstructForm extends PureComponent<Props, State> {
                 id={id}
                 label={name}
                 onClick={this.onSelect}
-                selected={this.state.provider === id} />
+                selected={provider === id} />
             )}
           </List>
           <ListShadow />
         </Column>
-        <SeperatorArrow />
-        <Column>
-          <ColumnTitle>Currency pair</ColumnTitle>
-          <List>
-            {pairs.map(val =>
-              <ListItem
-                key={val}
-                type='pair'
-                id={val}
-                label={val}
-                onClick={this.onSelect}
-                selected={this.state.pair === val} />
-            )}
-          </List>
-          <ListShadow />
-        </Column>
-        <SeperatorArrow />
-        <Column>
-          <VerticalDelimeter>
-            <ColumnTitle>Update after</ColumnTitle>
-            <LabeledInputContainer>
-              <InputNumber
-                name='updateAfter'
-                defaultValue={this.state.updateAfter}
-                onChange={this.onInputChange('updateAfter')}
-              />
-              <Label htmlFor='updateAfter'>blocks</Label>
-            </LabeledInputContainer>
-          </VerticalDelimeter>
+        { provider &&
+          <Fragment>
+            <SeperatorArrow />
+            <Column>
+              <ColumnTitle>Currency pair</ColumnTitle>
+              <List>
+                {pairs.map(val =>
+                  <ListItem
+                    key={val}
+                    type='pair'
+                    id={val}
+                    label={val}
+                    onClick={this.onSelect}
+                    selected={pair === val} />
+                )}
+              </List>
+              <ListShadow />
+            </Column>
+            <SeperatorArrow />
+            { pair &&
+              <Fragment>
+                <Column>
+                  <VerticalDelimeter>
+                    <ColumnTitle>Update after</ColumnTitle>
+                    <LabeledInputContainer>
+                      <InputNumber
+                        name='updateAfter'
+                        defaultValue={this.state.updateAfter}
+                        onChange={this.onInputChange('updateAfter')}
+                      />
+                      <Label htmlFor='updateAfter'>blocks</Label>
+                    </LabeledInputContainer>
+                  </VerticalDelimeter>
 
-          <VerticalDelimeter>
-            <ColumnTitle>Retire data after</ColumnTitle>
-            <LabeledInputContainer>
-              <InputNumber
-                name='retireAfter'
-                defaultValue={this.state.retireAfter}
-                onChange={this.onInputChange('retireAfter')}
-              />
-              <Label htmlFor='retireAfter'>blocks</Label>
-            </LabeledInputContainer>
-          </VerticalDelimeter>
-        </Column>
-        <ControlsRow>
-          <MainBtn onClick={this.onSubmit}>
-            Generate
-            <Icon src={require('./arrowRight.svg')}/>
-          </MainBtn>
-        </ControlsRow>
+                  <VerticalDelimeter>
+                    <ColumnTitle>Retire data after</ColumnTitle>
+                    <LabeledInputContainer>
+                      <InputNumber
+                        name='retireAfter'
+                        defaultValue={this.state.retireAfter}
+                        onChange={this.onInputChange('retireAfter')}
+                      />
+                      <Label htmlFor='retireAfter'>blocks</Label>
+                    </LabeledInputContainer>
+                  </VerticalDelimeter>
+                </Column>
+              </Fragment>
+            }
+
+            <ControlsRow>
+              <MainBtn onClick={this.onSubmit} disabled={!(provider && pair)}>
+                Generate
+                <Icon src={require('./arrowRight.svg')}/>
+              </MainBtn>
+            </ControlsRow>
+          </Fragment>
+        }
       </FormContainer>
     )
   }
@@ -182,6 +195,10 @@ const MainBtn = styled('button')(({ theme }) => ({
   padding: '.75rem 1rem .85rem 1rem',
   marginBottom: '2rem',
   cursor: 'pointer',
+  ':disabled': {
+    background: '#ccc',
+    cursor: 'no-drop',
+  }
 }))
 
 const ControlsRow = styled('div')({
