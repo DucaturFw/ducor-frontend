@@ -35,8 +35,11 @@ export default class ContractCodePage extends Component<Props, State> {
 
   fetchData = async (props: Props) => {
     const { match: { params }, location: { search } } = props
-    const { name, pair, provider, type } = params
+    
+    let { name, pair, provider, type } = params
     const { lifetime = 10, updatefreq = 10 } = urlPropsToObject(search) as { lifetime: string, updatefreq: string }
+    
+    pair = decodeURIComponent(pair)
 
     const res = await fetch(`${API_URL}/generate/${name}/${type}/${provider}?config=${encodeURIComponent(JSON.stringify({ pair }))}&updatefreq=${updatefreq}&lifetime=${lifetime}`)
     const json = await res.json() as State
