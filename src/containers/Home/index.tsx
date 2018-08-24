@@ -13,7 +13,7 @@ export default () => (
           img={require('./cryptExRates.svg')}
           title='Cryptocurrency exchanges rates' />
       </UndecoratedLink>
-      <UndecoratedLink to='/construct'>
+      {/* <UndecoratedLink to='/construct'>
         <OptionItem
           img={require('./stockExRates.svg')}
           title='Stock exchange rates' />
@@ -22,7 +22,7 @@ export default () => (
         <OptionItem
           img={require('./sportsBetting.svg')}
           title='Sports Betting' />
-      </UndecoratedLink>
+      </UndecoratedLink> */}
       <UndecoratedLink to='/contract/eos/random/simple'>
         <OptionItem
           img={require('./randomValues.svg')}
@@ -58,6 +58,6 @@ const UndecoratedLink = styled(Link)(({ theme }) => ({
     border: `3px solid ${theme.borderColor}`,
   },
   '@media (min-width: 760px)': {
-    width: '20vw',
+    width: '40vw',
   }
 }))
